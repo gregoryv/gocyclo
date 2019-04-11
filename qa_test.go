@@ -14,7 +14,7 @@ func TestComplexity(t *testing.T) {
 	}
 
 	files := fileNames(goFiles)
-	max := 2
+	max := 5
 	result, ok := Assert(files, max)
 	if !ok {
 		t.Errorf("Maximum complexity %v, exceeded", max)
