@@ -1,19 +1,14 @@
 package gocyclo
 
 import (
-	"container/list"
+	"path/filepath"
 	"testing"
-
-	"github.com/gregoryv/find"
 )
 
 func TestComplexity(t *testing.T) {
-	goFiles, err := find.ByName("*.go", ".")
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	files := fileNames(goFiles)
+	goFiles, _ := filepath.Glob("*.go")
+	extra, _ := filepath.Glob("cmd/gocyclo/*.go")
+	files := append(goFiles, extra...)
 	max := 5
 	result, ok := Assert(files, max)
 	if !ok {
@@ -22,16 +17,4 @@ func TestComplexity(t *testing.T) {
 			t.Log(l)
 		}
 	}
-}
-
-func fileNames(files *list.List) (names []string) {
-	var i int
-	names = make([]string, files.Len())
-	for e := files.Front(); e != nil; e = e.Next() {
-		if s, ok := e.Value.(string); ok {
-			names[i] = s
-		}
-		i++
-	}
-	return
 }
