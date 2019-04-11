@@ -21,10 +21,11 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/gregoryv/gocyclo"
 	"io"
 	"log"
 	"os"
+
+	"github.com/gregoryv/gocyclo"
 )
 
 const usageDoc = `Calculate cyclomatic complexities of Go functions.
@@ -73,11 +74,6 @@ func main() {
 	if *over > 0 && len(result) > 0 {
 		os.Exit(1)
 	}
-}
-
-func isDir(filename string) bool {
-	fi, err := os.Stat(filename)
-	return err == nil && fi.IsDir()
 }
 
 func writeStats(w io.Writer, sortedStats []gocyclo.Stat) {
